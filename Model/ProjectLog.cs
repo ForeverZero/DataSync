@@ -22,14 +22,14 @@ namespace DataSynchronizor.Model
         [Description("本地变更")]
         LocalChange = 1,
         [Description("同步: 项目 => 同步目录")]
-        Upload = 1,
+        Upload = 2,
         [Description("同步: 项目 <= 同步目录")]
-        Download = 2,
+        Download = 3,
         [Description("发现冲突")]
-        Conflict = 3,
+        Conflict = 4,
         [Description("解决冲突: 项目 => 同步目录")]
-        ResolveConflictUseProject = 4,
+        ResolveConflictUseProject = 5,
         [Description("解决冲突: 项目 <= 同步目录")]
-        ResolveConflictUseSync = 5,
+        ResolveConflictUseSync = 6,
     }
 }
