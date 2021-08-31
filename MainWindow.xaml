@@ -1,0 +1,131 @@
+﻿<Window x:Class="DataSynchronizor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSynchronizor.ViewModel"
+        xmlns:model="clr-namespace:DataSynchronizor.Model"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Data Synchronizor" Height="600" Width="1000">
+
+    <Window.DataContext>
+        <local:MainView/>
+    </Window.DataContext>
+    
+    <Grid ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Margin="0,5,0,5" Grid.Row="0" Grid.Column="1" BorderThickness="2" BorderBrush="Gray" Width="1" Height="Auto"/>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" Margin="5,2,0,0" FontSize="18" Text="项目列表" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"/>
+            <Button Click="BtnAdd_OnClick" x:Name="BtnAdd" Grid.Row="0" Content="+" FontSize="18" Grid.Column="8" Grid.ColumnSpan="2" Width="25" Height="25"/>
+            <Button Click="BtnDel_OnClick" x:Name="BtnDel" Grid.Row="0" Content="-" FontSize="18" Grid.Column="10" Grid.ColumnSpan="2" Width="25" Height="25"/>
+            <ListBox SelectionChanged="LbProjects_OnSelectionChanged" SelectedItem="{Binding SelectedProject}" ItemsSource="{Binding Projects}" FontSize="20" x:Name="LbProjects" Margin="5,2,0,5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="12">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" Foreground="{Binding ShowColor}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- 同步目录 -->
+            <TextBlock VerticalAlignment="Center" Text="同步目录" TextAlignment="Left" Margin="5,5,0,0" FontSize="18" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <TextBox VerticalContentAlignment="Center" x:Name="TbSyncFolder" IsEnabled="False" Text="{Binding SyncFolder}" FontSize="18" Margin="5,5,5,5" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="9"/>
+            <Button Click="BtnSelectSyncFolder_Click" x:Name="BtnSelectSyncFolder" FontSize="18" Grid.Row="0" Grid.Column="11" Content="..." Width="28" Height="28"/>
+            
+            <!-- 分界线 -->
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="12" BorderThickness="2" BorderBrush="Gray" Margin="5,0,5,0" Height="1" Width="Auto"/>
+            
+            <!-- 项目目录 -->
+            <TextBlock VerticalAlignment="Center" Text="项目目录" TextAlignment="Left" Margin="5,5,0,0" FontSize="18" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <TextBox VerticalContentAlignment="Center" x:Name="TbProjectFolder" IsEnabled="False" Text="{Binding ProjectFolder}" FontSize="18" Margin="5,5,5,5" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="9"/>
+            <Button Click="BtnSelectProjectFolder_OnClick" x:Name="BtnSelectProjectFolder" FontSize="18" Grid.Row="2" Grid.Column="11" Content="..." Width="28" Height="28"/>
+            
+            <!-- 监控进程 -->
+            <TextBlock VerticalAlignment="Center" Text="监控进程" TextAlignment="Left" Margin="5,5,0,0" FontSize="18" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <TextBox LostFocus="TbProjectProcess_OnLostFocus" KeyDown="TbProjectProcess_OnKeyDown" VerticalContentAlignment="Center" x:Name="TbProjectProcess" Text="{Binding ProjectProcess}" FontSize="18" Margin="5,5,5,5" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="9"/>
+            <Button Click="BtnSelectProjectProcess_OnClick" x:Name="BtnSelectProjectProcess" FontSize="18" Grid.Row="3" Grid.Column="11" Content="..." Width="28" Height="28"/>
+
+            <!-- 项目日志 -->
+            <TextBlock VerticalAlignment="Center" Text="项目日志" TextAlignment="Left" Margin="5,5,0,0" FontSize="18" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <Button Click="BtnSolveConflict_OnClick" x:Name="BtnResolveConflict" Grid.Row="4" Grid.Column="10" Grid.ColumnSpan="2" Content="处理冲突" FontSize="18" Margin="5"/>
+            <DataGrid FontSize="14" SelectionChanged="DgProjectLog_OnSelectionChanged" x:Name="DgProjectLog" IsReadOnly="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Margin="5,5,5,5">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Time}" Header="时间" Width="145"/>
+                    <DataGridTextColumn Binding="{Binding TypeDisplay}" Header="操作类型" Width="185"/>
+                    <DataGridTextColumn Binding="{Binding Direction}" Header="备注" Width="*"/>
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Type}" Value="{x:Static model:ProjectOpType.Conflict}">
+                                <Setter Property="Background" Value="Yellow"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="{x:Static model:ProjectOpType.ResolveConflictUseProject}">
+                                <Setter Property="Background" Value="LightGreen"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="{x:Static model:ProjectOpType.ResolveConflictUseSync}">
+                                <Setter Property="Background" Value="LightGreen"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="{x:Static model:ProjectOpType.CreateProject}">
+                                <Setter Property="Background" Value="LightBlue"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="DataSynchronizor.View.InputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSynchronizor"
+        mc:Ignorable="d"
+        Title="InputDialog" Height="120" Width="275" ResizeMode="NoResize">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBox KeyDown="TbInput_OnKeyDown" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5, 10, 5, 10"
+                 TextChanged="TbInput_TextChanged" x:Name="TbInput" TextWrapping="Wrap" FontSize="20" />
+        <Button Grid.Row="1" Grid.Column="0" Margin="10,5,10,5" IsEnabled="false" x:Name="BtnOk" Content="确认" Click="BtnOk_Click"/>
+        <Button Grid.Row="1" Grid.Column="1" Margin="10,5,10,5" x:Name="BtnCancel" Content="取消" Click="BtnCancel_Click"/>
+    </Grid>
+</Window>
