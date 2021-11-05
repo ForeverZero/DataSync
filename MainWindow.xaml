@@ -94,7 +94,7 @@
             <!-- 项目日志 -->
             <TextBlock VerticalAlignment="Center" Text="项目日志" TextAlignment="Left" Margin="5,5,0,0" FontSize="18" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
             <Button Click="BtnSolveConflict_OnClick" x:Name="BtnResolveConflict" Grid.Row="4" Grid.Column="10" Grid.ColumnSpan="2" Content="处理冲突" FontSize="18" Margin="5"/>
-            <DataGrid FontSize="14" SelectionChanged="DgProjectLog_OnSelectionChanged" x:Name="DgProjectLog" IsReadOnly="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Margin="5,5,5,5">
+            <DataGrid FontSize="14" SelectionChanged="DgProjectLog_OnSelectionChanged" x:Name="DgProjectLog" IsReadOnly="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Margin="5,5,5,5" AutoGenerateColumns="False">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontWeight" Value="Bold"/>
